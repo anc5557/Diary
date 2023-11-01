@@ -1,3 +1,4 @@
+// path: backend/models/Diary.js
 const mongoose = require('mongoose');
 
 // 일기장 기능을 위한 diarySchema 추가

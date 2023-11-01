@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* 회원가입 페이지 */
+.register-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 입력 필드 스타일링 */
+.register-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 버튼 스타일링 */
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  color: green;
+  font-size: 18px;
+  margin-top: 10px;
+}
