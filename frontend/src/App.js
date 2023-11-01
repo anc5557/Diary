@@ -1,23 +1,33 @@
-// path: frontend/src/App.js
-import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from './Register';
 import Login from './Login';
-import UpdateProfile from './UpdateProfile';
-
-// 라우팅 설정 
-// auth/register : 회원가입 페이지
-// auth/login : 로그인 페이지
-// auth/update-profile : 회원 정보 변경 페이지
+import Register from './Register';
+import NavBar from './NavBar';
+import About from './About';
+import Calendar from './Calendar';
+import MyInfo from './MyInfo';
+import './App.css';
 
 function App() {
+  // 로그인 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <Router>
-      <Routes>
-        <Route path="/auth/register" element={<Register />} />
-        <Route path="/auth/login" element={<Login />} />
-        <Route path="/auth/update-profile" element={<UpdateProfile />} />
-      </Routes>
+      <div className="App">
+        <NavBar isLoggedIn={isLoggedIn} />
+        <Routes>
+          <Route path="/auth/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/auth/register" element={<Register />} />
+          {isLoggedIn ? (
+            <Route path="/" element={<Calendar />} /> // 로그인 상태일 때는 Calendar 컴포넌트를 렌더
+          ) : (
+            <Route path="/" element={<About />} /> // 로그아웃 상태일 때는 About 컴포넌트를 렌더
+          )}
+          <Route path="/auth/me" element={<MyInfo />} />
+          {/* 다른 라우트들 추가 */}
+        </Routes>
+      </div>
     </Router>
   );
 }
