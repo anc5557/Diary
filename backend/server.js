@@ -1,7 +1,7 @@
 // path : backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/Auth');
 const cors = require('cors');
 
 require('dotenv').config();
