@@ -16,13 +16,13 @@ function Register() {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:3001/auth/register', {
-        username,
-        password,
-        firstName,
-        lastName,
-        email,
-      });
+        await axios.post('http://localhost:3001/auth/register', { 
+            username,
+            password,
+            firstName,
+            lastName,
+            email,
+        });
       
       // 알림창 띄우기
       alert('회원가입이 성공적으로 완료되었습니다.');
