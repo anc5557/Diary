@@ -77,3 +77,97 @@
   font-size: 18px;
   margin-top: 10px;
 }
+
+
+/* 로그인 페이지 *//* 로그인 컨테이너 */
+.login-container {
+  width: 300px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* 로그인 입력 필드와 버튼 */
+.login-input,
+.login-button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;  /* box-sizing 추가 */
+}
+
+/* 로그인 버튼 */
+.login-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+}
+
+/* 로그인 타이틀 */
+.login-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* 로그인 버튼 마우스 오버 */
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+/* 로그인 alert */
+.alert {
+  color: red;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* 로그인 회원가입 버튼 */
+.login-register-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 10px 10px 10px 107.5px;
+  display: inline-block;
+}
+
+/* 로그인 회원가입 버튼 마우스 오버 */
+.login-register-link:hover {
+  text-decoration: underline;
+}
+
+/* 로그인 아이디 찾기 버튼 */
+.login-id-find-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 10px 10px 10px 0;
+  display: inline-block;
+}
+
+/* 로그인 아이디 찾기 버튼 마우스 오버 */
+.login-id-find-link:hover {
+  text-decoration: underline;
+}
+
+/* 로그인 비밀번호 찾기 버튼 */
+.login-forgot-password-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 10px 10px 10px 0;
+  display: inline-block;
+}
+
+/* 로그인 비밀번호 찾기 버튼 마우스 오버 */
+.login-forgot-password-link:hover {
+  text-decoration: underline;
+}
+

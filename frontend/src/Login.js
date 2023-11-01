@@ -1,6 +1,7 @@
 // path : frontend/src/login.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import './App.css';  // App.css import
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -19,11 +20,19 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-container">
+      <h1 className="login-title">로그인</h1>
+      <form onSubmit={handleSubmit}>
+        <input className="login-input" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input className="login-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button className="login-button" type="submit">Login</button>
+      </form>
+
+      <a className="login-register-link" href="/auth/register">회원가입</a>
+      <a className="login-id-find-link" href="/auth/find-id">아이디 찾기</a>
+      <a className="login-forgot-password-link" href="/auth/forgot-password">비밀번호 찾기</a>
+
+    </div>
   );
 }
 
