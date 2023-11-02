@@ -10,7 +10,7 @@ function MyInfo() {
     useEffect(() => {
         const fetchUser = async () => {
         try {
-            const res = await axios.get('http://localhost:3001/auth/me', {
+            const res = await axios.get('http://localhost:3001/auth/profile', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

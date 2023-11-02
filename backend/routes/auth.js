@@ -8,6 +8,22 @@ const router = express.Router();
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
+// 인증 미들웨어
+const authMiddleware = (req, res, next) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(403).send('A token is required for authentication');
+  }
+  try {
+    const decoded = jwt.verify(token, 'your_secret_key');
+    req.userId = decoded.id;
+    next();
+  } catch (err) {
+    return res.status(401).send('Invalid Token');
+  }
+};
+
 // 회원가입
 router.post('/register', async (req, res) => {
   try {
@@ -123,5 +139,45 @@ router.put('/update', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+
+// 회원 정보 조회
+router.get('/profile', async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1]; // 'Bearer' 토큰 추출
+    const decoded = jwt.verify(token, 'your_secret_key');
+    
+    const user = await User.findById(decoded.id).select('-password'); // 비밀번호 제외한 사용자 정보 조회
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    res.json(user); // 사용자 정보 응답
+  } catch (err) {
+    if (err.name === 'JsonWebTokenError') {
+      return res.status(401).send('Invalid Token');
+    } else {
+      return res.status(500).send('Internal Server Error');
+    }
+  }
+});
+
+// 회원 탈퇴
+router.delete('/delete', async (req, res) => {
+  try {
+    const userId = req.userId; // 토큰에서 사용자 ID 추출 (인증 미들웨어를 거쳐야 함)
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    await user.remove(); // 사용자 정보를 데이터베이스에서 삭제
+    res.status(200).send('User deleted successfully');
+  } catch (err) {
+    res.status(500).send('Internal server error');
+  }
+});
+
+
 
 module.exports = router;
