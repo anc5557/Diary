@@ -13,9 +13,9 @@ function NavBar({ isLoggedIn }) {
         </>
       ) : (
         <>
-        <Link className="navbar-link" to="/">Home</Link>
-        <Link className="navbar-link" to="/auth/login">Login</Link>
         <Link className="navbar-link" to="/auth/register">Register</Link>
+        <Link className="navbar-link" to="/auth/login">Login</Link>
+        <Link className="navbar-link" to="/">Home</Link>
         </>
         
 
