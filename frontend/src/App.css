@@ -175,22 +175,66 @@
 .navbar {
   background-color: #5caa68;
   overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* 네비게이션 바 링크 */
-.navbar a {
+/* 네비게이션 바 링크 및 버튼 */
+.navbar-link, .navbar button {
   float: right;
   font-size: 16px;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  
-} 
+  background-color: transparent; /* 버튼 배경 투명하게 설정 */
+  border: none; /* 버튼 테두리 없앰 */
+  cursor: pointer;
+  display: block; /* 정렬을 위해 block으로 설정 */
+}
 
-/* 네비게이션 바 링크 마우스 오버 */
-.navbar a:hover {
+/* 네비게이션 바 링크 및 버튼 마우스 오버 */
+.navbar-link:hover, .navbar button:hover {
   background-color: #f2f2f2;
   color: black;
 }
 
+
+/* about-container */
+.about-container {
+  max-width: 500px;
+  height: 500px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* about-title */
+.about-title {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* about-p */
+.about-p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* about-func */
+.about-func {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* about-func-list */
+.about-func-list {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #333;
+  list-style-type: none; /* 리스트 앞의 점을 없애는 스타일 */
+  padding: 0; /* 왼쪽 패딩을 제거하여 정렬을 맞춤 */
+}

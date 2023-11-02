@@ -1,13 +1,16 @@
+// path : frontend/src/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import { Link } from 'react-router-dom';  // 리액트 라우터의 Link 컴포넌트 추가
+import { useNavigate } from 'react-router-dom';  // useHistory import
 
-function Login() {
+function Login({setIsLoggedIn}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);  // 에러 상태 추가
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const navigate = useNavigate();  // useHistory 초기화
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,14 +18,21 @@ function Login() {
     setError(null);
 
     try {
-      const res = await axios.post('http://localhost:3001/auth/login', { username, password });
-      localStorage.setItem('token', res.data.token);
-      alert('Logged in successfully');
-      setIsLoading(false);
+      const response = await axios.post('http://localhost:3001/auth/login', 
+                                        { username, password }, 
+                                        { headers: { 'Content-Type': 'application/json' } }); // 요청 헤더에 Content-Type을 추가
+      localStorage.setItem('token', response.data.token); // 로컬 스토리지에 토큰 저장
+      setIsLoggedIn(true); // 로그인 상태를 true로 변경
+      navigate('/', { replace: true });
+       // 홈으로 이동
     } catch (err) {
-      setError(err.response.data);
-      setIsLoading(false);
+      const errorMessage = err.response 
+                           ? err.response.data.message 
+                           : '로그인 중 문제가 발생했습니다.'; // 서버 응답이 없는 경우 대비
+      setError(errorMessage);
     }
+
+    setIsLoading(false); // 로딩 상태 해제는 try/catch 바깥에서 수행
   };
 
   return (

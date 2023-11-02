@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
@@ -12,19 +12,27 @@ function App() {
   // 로그인 상태 관리
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 컴포넌트가 마운트 될 때 로컬 스토리지의 토큰을 확인
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // 토큰이 있다면 로그인 상태로 설정
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <Router>
       <div className="App">
-        <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/auth/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/auth/register" element={<Register />} />
-          {isLoggedIn ? (
-            <Route path="/" element={<Calendar />} /> // 로그인 상태일 때는 Calendar 컴포넌트를 렌더
-          ) : (
-            <Route path="/" element={<About />} /> // 로그아웃 상태일 때는 About 컴포넌트를 렌더
-          )}
-          <Route path="/auth/me" element={<MyInfo />} />
+          <Route path="/" element={isLoggedIn ? <Calendar /> : <About />} />
+          <Route 
+            path="/auth/me" 
+            element={isLoggedIn ? <MyInfo /> : <Navigate replace to="/auth/login" />} 
+          />
           {/* 다른 라우트들 추가 */}
         </Routes>
       </div>
