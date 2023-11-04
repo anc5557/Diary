@@ -102,7 +102,7 @@ router.post('/login', async (req, res) => {
 });
 
 // 회원 정보 변경
-router.put('/update', async (req, res) => {
+router.put('/update-info', async (req, res) => {
   try {
     const { newPassword, firstName, lastName, email } = req.body;
     const userId = req.userId;

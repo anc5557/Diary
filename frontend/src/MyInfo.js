@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
-function MyInfo({ history }) {
+function MyInfo() {
     const [user, setUser] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,7 +25,7 @@ function MyInfo({ history }) {
 
     // 정보 변경 페이지로 이동하는 함수
     const goToUpdatePage = () => {
-        history.push('/update-info');
+        navigate('/auth/update-info'); 
     };
 
     return (

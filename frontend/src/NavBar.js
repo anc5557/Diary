@@ -20,7 +20,7 @@ function NavBar({ isLoggedIn, setIsLoggedIn }) {
         <Link className="navbar-link" to="/">Home</Link>
       {isLoggedIn ? (
         <>
-          <Link className="navbar-link" to="/auth/me">My Info</Link>
+          <Link className="navbar-link" to="/auth/profile">My Info</Link>
           <button className="navbar-link" onClick={handleLogout}>Logout</button>
         </>
       ) : (

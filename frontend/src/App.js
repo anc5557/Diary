@@ -6,6 +6,7 @@ import NavBar from './NavBar';
 import About from './About';
 import Calendar from './Calendar';
 import MyInfo from './MyInfo';
+import UpdateInfo from './UpdateInfo';
 import './App.css';
 
 function App() {
@@ -30,10 +31,13 @@ function App() {
           <Route path="/auth/register" element={<Register />} />
           <Route path="/" element={isLoggedIn ? <Calendar /> : <About />} />
           <Route 
-            path="/auth/me" 
+            path="/auth/profile" 
             element={isLoggedIn ? <MyInfo /> : <Navigate replace to="/auth/login" />} 
           />
-          {/* 다른 라우트들 추가 */}
+          <Route 
+            path="/auth/update-info" 
+            element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />} 
+          />
         </Routes>
       </div>
     </Router>
