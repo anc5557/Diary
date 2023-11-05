@@ -5,24 +5,27 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const router = express.Router();
-
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
-// 인증 미들웨어
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization'];
+require('dotenv').config();
 
-  if (!token) {
-    return res.status(403).send('A token is required for authentication');
-  }
+//jwt secret key, .env 파일에 저장
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1h'; // 기본값 설정
+
+
+// jwt 토큰 인증 미들웨어
+const auth = (req, res, next) => {
   try {
-    const decoded = jwt.verify(token, 'your_secret_key');
-    req.userId = decoded.id;
+    const token = req.headers.authorization.split(' ')[1]; // 'Bearer' 토큰 추출
+    const decoded = jwt.verify(token, jwtSecretKey); // 토큰 해독
+    req.userId = decoded.id; // 사용자 ID를 요청 객체에 저장
     next();
   } catch (err) {
-    return res.status(401).send('Invalid Token');
+    res.status(401).send('Invalid Token');
   }
 };
+
 
 // 회원가입
 router.post('/register', async (req, res) => {
@@ -86,12 +89,13 @@ router.post('/login', async (req, res) => {
       return res.status(400).send('Incorrect password');
     }
 
-    const token = jwt.sign({ id: user._id }, 'your_secret_key', { expiresIn: '1h' });
+    // 환경변수를 사용하여 토큰 발급
+    const token = jwt.sign({ id: user._id }, jwtSecretKey, { expiresIn: jwtExpiresIn });
 
-    // 로그인 확인
-    console.log("로그인 확인",{
+    // 보안을 위해 비밀번호 로깅 제거
+    // 로그인 확인 (보안상 비밀번호 로깅은 제거)
+    console.log("로그인 확인", {
       username,
-      password,
       token,
     });
 
@@ -144,7 +148,8 @@ router.put('/update-info', async (req, res) => {
 router.get('/profile', async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1]; // 'Bearer' 토큰 추출
-    const decoded = jwt.verify(token, 'your_secret_key');
+    const decoded = jwt.verify(token, jwtSecretKey); // 환경변수를 사용한 키로 변경
+    
     
     const user = await User.findById(decoded.id).select('-password'); // 비밀번호 제외한 사용자 정보 조회
     if (!user) {
