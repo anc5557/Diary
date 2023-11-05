@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+// path: frontend/src/App.js 
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLogin } from './features/loginSlice';
+
 import Login from './Login';
 import Register from './Register';
 import NavBar from './NavBar';
@@ -10,24 +14,27 @@ import UpdateInfo from './UpdateInfo';
 import './App.css';
 
 function App() {
-  // 로그인 상태 관리
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const [loading, setLoading] = useState(true);
 
-  // 컴포넌트가 마운트 될 때 로컬 스토리지의 토큰을 확인
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      // 토큰이 있다면 로그인 상태로 설정
-      setIsLoggedIn(true);
-    }
-  }, []);
+    dispatch(setLogin(!!token));
+    setLoading(false);
+  }, [dispatch]);
 
+  if (loading) {
+    // 로딩 중에는 아무것도 렌더링하지 않음
+    return null;
+  }
+  
   return (
     <Router>
       <div className="App">
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <NavBar />
         <Routes>
-          <Route path="/auth/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/" element={isLoggedIn ? <Calendar /> : <About />} />
           <Route 
