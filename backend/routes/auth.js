@@ -24,8 +24,8 @@ const auth = (req, res, next) => {
   } catch (err) {
     res.status(401).send('Invalid Token');
   }
+  
 };
-
 
 // 회원가입
 router.post('/register', async (req, res) => {
@@ -33,111 +33,85 @@ router.post('/register', async (req, res) => {
     const { username, password, email, firstName, lastName } = req.body;
 
     // 필수 입력값 확인
-    if (!username || !password || !email || !firstName || !lastName) {
+    if (!username || !password || !email) {
       return res.status(400).send('All fields are required');
     }
 
-    // 비밀번호 유효성 검사
-    if (!password.match(passwordRegex)) {
-      return res.status(400).send('Password must contain both letters and numbers and be 8-20 characters long.');
+    // 비밀번호 형식 확인
+    if (!passwordRegex.test(password)) {
+      return res.status(400).send('Password must contain at least eight characters, including one letter and one number');
     }
 
-    // username 중복 검사
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).send('Username already exists');
+    // 사용자 중복 확인
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.status(409).send('User already exists');
     }
-    
-    const hashedPassword = await bcrypt.hash(password, 10); // 비밀번호 암호화
-    // 회원가입 정보 저장 
-    const user = await User.create({
+
+    // 비밀번호 암호화
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 사용자 생성
+    const newUser = new User({
       username,
       password: hashedPassword,
       email,
       firstName,
       lastName,
     });
-    
-    // 정보 확인
-    console.log("회원가입 정보",{
-      username,
-      password,
-      email,
-      firstName,
-      lastName,
-    });
-    
-    
-    res.status(201).json({ id: user._id, message: "회원가입이 성공적으로 완료되었습니다." }); // 회원가입 성공
+
+    // MongoDB에 저장
+    await newUser.save();
+
+    res.status(201).send('User created successfully');
   } catch (err) {
-    res.status(500).send('Internal server error'); // 서버 에러
+    res.status(500).send('Internal server error');
   }
 });
-
 
 // 로그인
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+
+    // 필수 입력값 확인
+    if (!username || !password) {
+      return res.status(400).send('All fields are required');
+    }
+
+    // 사용자 확인
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).send('Username not found');
+      return res.status(404).send('User not found');
     }
 
+    // 비밀번호 확인
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).send('Incorrect password');
+      return res.status(400).send('Invalid credentials');
     }
 
-    // 환경변수를 사용하여 토큰 발급
+    // JWT 생성
     const token = jwt.sign({ id: user._id }, jwtSecretKey, { expiresIn: jwtExpiresIn });
-
-    // 보안을 위해 비밀번호 로깅 제거
-    // 로그인 확인 (보안상 비밀번호 로깅은 제거)
-    console.log("로그인 확인", {
-      username,
-      token,
-    });
-
-    res.status(200).json({ token });
+    res.status(200).json({ token }); // JWT 토큰 응답
   } catch (err) {
     res.status(500).send('Internal server error');
   }
 });
 
 // 회원 정보 변경
-router.put('/update-info', async (req, res) => {
+router.put('/update-info', auth, async (req, res) => {
   try {
-    const { newPassword, firstName, lastName, email } = req.body;
-    const userId = req.userId;
-
+    const userId = req.userId; 
+    const { email, firstName, lastName } = req.body;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(400).send('User not found');
+      return res.status(404).send('User not found');
     }
-
-    if (newPassword) {
-      if (!newPassword.match(passwordRegex)) {
-        return res.status(400).send('New password must contain both letters and numbers and be 8-20 characters long.');
-      }
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      user.password = hashedPassword;
-    }
-
-    if (firstName) user.firstName = firstName;
-    if (lastName) user.lastName = lastName;
-    if (email) user.email = email;
-
+    user.email = email || user.email;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
     await user.save();
-    
-    // 회원 정보 변경 확인
-    console.log("변경된 회원정보",{
-      newPassword,
-      firstName,
-      lastName,
-      email,
-    });
-
     res.status(200).send('User updated successfully');
   } catch (err) {
     res.status(500).send('Internal server error');
@@ -145,18 +119,16 @@ router.put('/update-info', async (req, res) => {
 });
 
 // 회원 정보 조회
-router.get('/profile', async (req, res) => {
+router.get('/profile', auth, async (req, res) => { 
   try {
-    const token = req.headers.authorization.split(' ')[1]; // 'Bearer' 토큰 추출
-    const decoded = jwt.verify(token, jwtSecretKey); // 환경변수를 사용한 키로 변경
-    
-    
-    const user = await User.findById(decoded.id).select('-password'); // 비밀번호 제외한 사용자 정보 조회
+    const userId = req.userId; // 'auth' 미들웨어에서 설정된 사용자 ID 사용
+    const user = await User.findById(userId).select('-password'); // 비밀번호 제외한 사용자 정보 조회
     if (!user) {
       return res.status(404).send('User not found');
     }
 
     res.json(user); // 사용자 정보 응답
+
   } catch (err) {
     if (err.name === 'JsonWebTokenError') {
       return res.status(401).send('Invalid Token');
@@ -167,22 +139,19 @@ router.get('/profile', async (req, res) => {
 });
 
 // 회원 탈퇴
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', auth, async (req, res) => { 
   try {
-    const userId = req.userId; // 토큰에서 사용자 ID 추출 (인증 미들웨어를 거쳐야 함)
-
+    const userId = req.userId; 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send('User not found');
     }
-
-    await user.remove(); // 사용자 정보를 데이터베이스에서 삭제
+    await user.remove();
     res.status(200).send('User deleted successfully');
   } catch (err) {
     res.status(500).send('Internal server error');
   }
 });
-
 
 
 module.exports = router;
