@@ -96,8 +96,10 @@ function MyInfo() {
                         <span className="myinfo-item-value">{user.username}</span>
                     </div>
                 )}
-                <button onClick={goToUpdatePage} className="update-button">정보 변경</button>
-                <button onClick={handleDeleteAccount} className="delete-button">회원 탈퇴</button>
+                <div className="myinfo-actions">
+                    <button onClick={goToUpdatePage} className="update-button">정보 변경</button>
+                    <button onClick={handleDeleteAccount} className="delete-button">회원 탈퇴</button>
+                </div>
             </div>
         </div>
     );

@@ -263,7 +263,33 @@
 }
 
 
-.update-button:hover {
-  background-color: #0056b3;
+/* 부모 컨테이너에 대한 스타일을 추가합니다. */
+.myinfo-actions {
+  display: flex; /* flexbox 레이아웃을 활성화합니다. */
+  justify-content: space-between; /* 버튼 사이에 공간을 동일하게 배분합니다. */
 }
+
+/* 기존 버튼 스타일을 유지하면서 너비를 조정합니다. */
+.update-button,
+.delete-button {
+  display: block;
+  padding: 10px 20px;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* flex 아이템들이 컨테이너의 전체 너비를 차지하도록 합니다. */
+}
+
+/* 버튼 사이의 간격을 추가합니다. */
+.update-button {
+  margin-right: 10px; /* 오른쪽 버튼과의 간격을 설정합니다. */
+}
+.delete-button {
+  margin-left: 10px; /* 왼쪽 버튼과의 간격을 설정합니다. */
+}
+
 
