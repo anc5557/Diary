@@ -38,6 +38,31 @@ function MyInfo() {
         }
     }, [dispatch, navigate]);
 
+    // 회원 탈퇴 처리 함수
+    const handleDeleteAccount = () => {
+        const confirmDelete = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
+        if (confirmDelete) {
+            const token = localStorage.getItem('token');
+            axios.delete('http://localhost:3001/auth/delete', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then(() => {
+                    alert('회원 탈퇴 처리가 완료되었습니다.');
+                    dispatch(setLogin(false));
+                    localStorage.removeItem('token'); // 토큰 삭제
+                    navigate('/'); // 홈으로 이동
+                })
+                .catch((error) => {
+                    const errorMessage = error.response
+                        ? error.response.data.message
+                        : '서버와의 연결이 끊어졌습니다.';
+                    alert(errorMessage);
+                });
+        }
+    };
+
 
 
     const goToUpdatePage = () => {
@@ -72,6 +97,7 @@ function MyInfo() {
                     </div>
                 )}
                 <button onClick={goToUpdatePage} className="update-button">정보 변경</button>
+                <button onClick={handleDeleteAccount} className="delete-button">회원 탈퇴</button>
             </div>
         </div>
     );
