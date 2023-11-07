@@ -1,0 +1,70 @@
+/* Confirm Alert Overlay */
+.react-confirm-alert-overlay {
+    /* 배경색 변경 */
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Confirm Alert Modal Box */
+.react-confirm-alert-body {
+    /* 모달 배경색 변경 */
+    background: #fff;
+    /* 모달의 패딩 변경 */
+    padding: 30px;
+    /* 모달의 너비 변경 */
+    width: 500px;
+    /* 모달의 둥근 모서리 */
+    border-radius: 10px;
+}
+
+/* Confirm Alert Modal Title */
+.react-confirm-alert-body > h1 {
+    /* 제목의 스타일 변경 */
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+
+/* yes버튼은 blue, no버튼은 red, 오른쪽 하단 정렬*/
+.react-confirm-alert-button-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* yes버튼 스타일 */
+.react-confirm-alert-button-group > button:first-child {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+/* no버튼 스타일 */
+.react-confirm-alert-button-group > button:last-child {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+/* 버튼 공통 스타일 */
+.react-confirm-alert-button-group > button {
+    /* 버튼의 공통 스타일 */
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 0;
+    /* 버튼 고정 너비 */
+    width: 100px;
+}
+
+/* no버튼에 마우스를 올렸을 때의 스타일, 약간 연하게 */
+.react-confirm-alert-button-group > button:last-child:hover {
+    background-color: #ae1524;
+}
+
+/* yes버튼에 마우스를 올렸을 때의 스타일, 약간 연하게 */
+.react-confirm-alert-button-group > button:first-child:hover {
+    background-color: #115194;
+}
+
+

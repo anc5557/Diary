@@ -3,10 +3,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from './features/loginSlice';
+import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import UpdateInfoModal from './UpdateInfoModal';
 import axios from 'axios';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import './custom-react-confirm-alert.css';
 
 function MyInfo() {
     const [user, setUser] = useState({});
@@ -42,7 +47,7 @@ function MyInfo() {
                 const errorMessage = error.response
                     ? error.response.data.message
                     : '서버와의 연결이 끊어졌습니다.';
-                alert(errorMessage);
+                toast.error(errorMessage);
                 setLoading(false);
             });
     };
@@ -68,42 +73,49 @@ function MyInfo() {
                     const errorMessage = error.response
                         ? error.response.data.message
                         : '서버와의 연결이 끊어졌습니다.';
-                    alert(errorMessage);
+                    toast.error(errorMessage);
                     setLoading(false);
                 });
         }
     }, [dispatch, navigate]);
 
     // 회원 탈퇴 처리 함수
+
     const handleDeleteAccount = () => {
-        const confirmDelete = window.confirm('정말로 회원 탈퇴를 하시겠습니까?');
-        if (confirmDelete) {
-            const token = localStorage.getItem('token');
-            axios.delete('http://localhost:3001/auth/delete', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+        confirmAlert({
+            title: '회원 탈퇴',
+            message: '정말로 회원 탈퇴를 하시겠습니까?',
+            buttons: [
+                {
+                    label: '예',
+                    onClick: () => {
+                        const token = localStorage.getItem('token');
+                        axios.delete('http://localhost:3001/auth/delete', {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        })
+                            .then(() => {
+                                toast.success('회원 탈퇴 처리가 완료되었습니다.');
+                                dispatch(setLogin(false));
+                                localStorage.removeItem('token'); // 토큰 삭제
+                                navigate('/'); // 홈으로 이동
+                            })
+                            .catch((error) => {
+                                const errorMessage = error.response
+                                    ? error.response.data.message
+                                    : '서버와의 연결이 끊어졌습니다.';
+                                toast.error(errorMessage);
+                            });
+                    },
                 },
-            })
-                .then(() => {
-                    alert('회원 탈퇴 처리가 완료되었습니다.');
-                    dispatch(setLogin(false));
-                    localStorage.removeItem('token'); // 토큰 삭제
-                    navigate('/'); // 홈으로 이동
-                })
-                .catch((error) => {
-                    const errorMessage = error.response
-                        ? error.response.data.message
-                        : '서버와의 연결이 끊어졌습니다.';
-                    alert(errorMessage);
-                });
-        }
+                {
+                    label: '아니오',
+                    onClick: () => {},
+                },
+            ],
+        });
     };
-
-
-
-    const goToUpdatePage = () => {
-        navigate('/auth/update-info', { replace: true });
-    }
 
     if (loading) {
         return null;
@@ -118,7 +130,7 @@ function MyInfo() {
                 {user.firstName && user.lastName && (
                     <div className="myinfo-item">
                         <span className="myinfo-item-name">이름</span>
-                        <span className="myinfo-item-value">{user.firstName}{user.lastName}</span>
+                        <span className="myinfo-item-value">{user.lastName}{user.firstName}</span>
                     </div>
                 )}
                 {user.username && (

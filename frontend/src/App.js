@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLogin } from './features/loginSlice';
+import { ToastContainer } from 'react-toastify';
+
 
 import Login from './Login';
 import Register from './Register';
@@ -12,6 +14,7 @@ import Calendar from './Calendar';
 import MyInfo from './MyInfo';
 import UpdateInfo from './UpdateInfo';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +49,7 @@ function App() {
             element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />}
           />
         </Routes>
+        <ToastContainer />
       </div>
     </Router>
   );
