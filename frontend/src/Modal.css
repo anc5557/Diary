@@ -1,0 +1,154 @@
+/* 모달의 오버레이 (배경) */
+.modal-overlay {
+    position: fixed;
+    /* 고정된 위치 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 반투명 검은색 */
+    display: flex;
+    align-items: center;
+    /* 수직 중앙 정렬 */
+    justify-content: center;
+    /* 수평 중앙 정렬 */
+    z-index: 1000;
+    /* 상위에 표시 */
+}
+
+/* 모달 창 스타일링 개선 */
+.modal {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    width: 500px;
+    max-width: 90%;
+    animation: modal-in 0.3s ease-out forwards;
+}
+
+/* 모달 애니메이션 */
+@keyframes modal-in {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 모달 내부 요소 */
+.modal h1 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    /* 제목 아래 경계선 추가 */
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* 폼 스타일 */
+.modal form {
+    display: flex;
+    flex-direction: column;
+    /* 세로 정렬 */
+}
+.modal p{
+    border-top: 2px solid #333;
+    padding-top: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: right;
+    color: #ff2e2e;
+}
+
+/* 입력 필드 스타일 */
+.modal input[type="text"],
+.modal input[type="email"],
+.modal input[type="password"] {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.modal input[type="text"]:hover,
+.modal input[type="email"]:hover,
+.modal input[type="password"]:hover {
+    border-color: #5c6bc0;
+}
+
+/* 모달 내부 버튼을 감싸는 컨테이너 스타일 */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    /* 버튼들을 오른쪽으로 정렬 */
+    align-items: center;
+    /* 버튼들을 수직 중앙으로 정렬 */
+    gap: 10px;
+    /* 버튼 사이의 간격 */
+}
+
+/* 버튼 공통 스타일 */
+.modal button {
+    cursor: pointer;
+    padding: 10px 20px;
+    /* 패딩으로 버튼 크기 조정 */
+    border: 1px solid transparent;
+    /* 투명한 경계선 */
+    color: #fff;
+    /* 텍스트 색상 흰색 */
+    font-size: 16px;
+    /* 폰트 크기 설정 */
+    border-radius: 4px;
+    /* 약간의 둥근 모서리 */
+    transition: background-color 0.3s, color 0.3s;
+    /* 색상 전환 효과 추가 */
+    margin-bottom: 0;
+    /* 마진 바텀 제거 */
+}
+
+/* '취소' 버튼 특정 스타일 */
+.modal .cancel-button {
+    background-color: #ff5e5e;
+    /* 빨간색 배경 */
+}
+
+/* '취소' 버튼 호버 스타일 */
+.modal .cancel-button:hover {
+    background-color: #ff2e2e;
+    /* 밝은 빨간색으로 변경 */
+}
+
+/* '저장' 버튼 특정 스타일 */
+.modal .save-button {
+    background-color: #5f7cff;
+    /* 파란색 배경 */
+}
+
+/* '저장' 버튼 호버 스타일 */
+.modal .save-button:hover {
+    background-color: #2e54ff;
+    /* 밝은 파란색으로 변경 */
+}
+
+
+/* 추가적인 그라데이션 배경 */
+.modal {
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+  }
+  

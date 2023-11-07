@@ -3,14 +3,50 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from './features/loginSlice';
+
+import UpdateInfoModal from './UpdateInfoModal';
 import axios from 'axios';
 import './App.css';
 
 function MyInfo() {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+     // 모달을 여는 함수
+     const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    // 모달을 닫는 함수
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // 사용자 정보를 새로고침하는 함수
+    const refreshUser = () => {
+        // 여기에 사용자 정보를 새로고침하는 로직을 추가하세요.
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:3001/auth/profile', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                setUser(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                const errorMessage = error.response
+                    ? error.response.data.message
+                    : '서버와의 연결이 끊어졌습니다.';
+                alert(errorMessage);
+                setLoading(false);
+            });
+    };
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -98,7 +134,8 @@ function MyInfo() {
                     </div>
                 )}
                 <div className="myinfo-actions">
-                    <button onClick={goToUpdatePage} className="update-button">정보 변경</button>
+                    <button onClick={openModal} className="update-button">정보 변경</button>
+                    <UpdateInfoModal isOpen={isModalOpen} onClose={closeModal} refreshUser={refreshUser} />
                     <button onClick={handleDeleteAccount} className="delete-button">회원 탈퇴</button>
                 </div>
             </div>
