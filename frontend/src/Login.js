@@ -60,9 +60,11 @@ function Login({ setIsLoggedIn }) {
           로그인
         </button>
       </form>
-      <Link className="login-register-link" to="/auth/register">회원가입</Link>
-      <Link className="login-id-find-link" to="/auth/find-id">아이디 찾기</Link>
-      <Link className="login-forgot-password-link" to="/auth/forgot-password">비밀번호 찾기</Link>
+      <div className='link-group'>
+        <Link className="login-register-link" to="/auth/register">회원가입</Link>
+        <Link className="login-id-find-link" to="/auth/find-id">아이디 찾기</Link>
+        <Link className="login-forgot-password-link" to="/auth/forgot-password">비밀번호 찾기</Link>
+      </div>
     </div>
   );
 }
