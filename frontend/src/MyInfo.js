@@ -78,12 +78,7 @@ function MyInfo() {
         <div className="myinfo-container">
             <h1 className="myinfo-title">내 정보</h1>
             <div className="myinfo">
-                {user.email && (
-                    <div className="myinfo-item">
-                        <span className="myinfo-item-name">이메일</span>
-                        <span className="myinfo-item-value">{user.email}</span>
-                    </div>
-                )}
+                
                 {user.firstName && user.lastName && (
                     <div className="myinfo-item">
                         <span className="myinfo-item-name">이름</span>
@@ -94,6 +89,12 @@ function MyInfo() {
                     <div className="myinfo-item">
                         <span className="myinfo-item-name">아이디</span>
                         <span className="myinfo-item-value">{user.username}</span>
+                    </div>
+                )}
+                {user.email && (
+                    <div className="myinfo-item">
+                        <span className="myinfo-item-name">이메일</span>
+                        <span className="myinfo-item-value">{user.email}</span>
                     </div>
                 )}
                 <div className="myinfo-actions">

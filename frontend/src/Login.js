@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';  // useHistory import
 import { useDispatch } from 'react-redux';
 import { setLogin } from './features/loginSlice'; // 리덕스 액션 가져오기
 
-function Login({setIsLoggedIn}) {
+function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);  // 에러 상태 추가
@@ -23,12 +23,12 @@ function Login({setIsLoggedIn}) {
     try {
       const response = await axios.post('http://localhost:3001/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
-      dispatch(setLogin(true)); 
+      dispatch(setLogin(true));
       navigate('/', { replace: true });
     } catch (err) {
-      const errorMessage = err.response 
-                           ? err.response.data.message 
-                           : '로그인 중 문제가 발생했습니다.';
+      const errorMessage = err.response
+        ? err.response.data.message
+        : '로그인 중 문제가 발생했습니다.';
       setError(errorMessage);
     }
 
@@ -40,21 +40,21 @@ function Login({setIsLoggedIn}) {
       <h1 className="login-title">로그인</h1>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <input 
-          className="login-input" 
-          type="text" 
-          placeholder="Username" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-          required 
+        <input
+          className="login-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
-        <input 
-          className="login-input" 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          required 
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button className="login-button" type="submit" disabled={isLoading}>
           로그인

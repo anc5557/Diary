@@ -28,7 +28,7 @@ function App() {
     // 로딩 중에는 아무것도 렌더링하지 않음
     return null;
   }
-  
+
   return (
     <Router>
       <div className="App">
@@ -37,13 +37,13 @@ function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/" element={isLoggedIn ? <Calendar /> : <About />} />
-          <Route 
-            path="/auth/profile" 
-            element={isLoggedIn ? <MyInfo /> : <Navigate replace to="/auth/login" />} 
+          <Route
+            path="/auth/profile"
+            element={isLoggedIn ? <MyInfo /> : <Navigate replace to="/auth/login" />}
           />
-          <Route 
-            path="/auth/update-info" 
-            element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />} 
+          <Route
+            path="/auth/update-info"
+            element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />}
           />
         </Routes>
       </div>

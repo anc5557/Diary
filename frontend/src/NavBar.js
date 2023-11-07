@@ -22,7 +22,7 @@ function NavBar() {
 
   return (
     <div className="navbar">
-        <Link className="navbar-link" to="/">Home</Link>
+      <Link className="navbar-link" to="/">Home</Link>
       {isLoggedIn ? (
         <>
           <Link className="navbar-link" to="/auth/profile">My Info</Link>
