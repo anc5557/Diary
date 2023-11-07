@@ -10,7 +10,9 @@ function UpdateInfoModal({ isOpen, onClose, refreshUser }) {
         lastName: '',
         password: '',
     });
-    const [errors, setErrors] = useState({}); // 오류 메시지 상태 추가
+    const [errors, setErrors] = useState({
+        formEmpty: null
+    });
 
     const validateForm = () => {
         let isValid = true;
@@ -39,6 +41,12 @@ function UpdateInfoModal({ isOpen, onClose, refreshUser }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!formData.email && !formData.firstName && !formData.lastName && !formData.password) {
+            setErrors({ ...errors, formEmpty: '변경할 정보를 최소 한 항목 이상 입력해주세요.' });
+            return;
+        }
+
         if (!validateForm()) {
             return; // 유효성 검사 실패 시, 제출 중단
         }
@@ -64,56 +72,52 @@ function UpdateInfoModal({ isOpen, onClose, refreshUser }) {
         <div className="modal-overlay">
             <div className="modal">
                 <h1>회원 정보 변경</h1>
-                {/* 설명 부분 추가: 빈칸이면 변경 되지 않습니다. */}
-                
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>
-                            이메일
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </label>
+                <form onSubmit={handleSubmit} >
+                    <div className='form-group'>
+                        <label htmlFor="email">이메일</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
                     </div>
-                    <div>
-                        <label>
-                            이름
-                            <input
-                                type="text"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                            />
-                        </label>
+                    <div className='form-group'>
+                        <label htmlFor="email">이름</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                        />
+
                     </div>
-                    <div>
-                        <label>
-                            성
-                            <input
-                                type="text"
-                                name="lastName"
-                                value={formData.lastName}
-                                onChange={handleChange}
-                            />
-                        </label>
+                    <div className='form-group'>
+                        <label htmlFor="email">성</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                        />
+
                     </div>
-                    <div>
-                        <label>
-                            비밀번호
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$'
-                                title='비밀번호는 최소 8자 이상, 최대 20자 이하여야 하며, 숫자를 포함해야 합니다.'
-                            />
-                        </label>
+                    <div className='form-group'>
+                        <label htmlFor="email">비밀번호</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$'
+                            title='비밀번호는 최소 8자 이상, 최대 20자 이하여야 하며, 숫자를 포함해야 합니다.'
+                        />
                     </div>
-                    <p>* 빈칸이면 변경되지 않습니다.</p>
+                    {
+                        errors.formEmpty
+                            ? <div className="form-error-message">* {errors.formEmpty}</div>
+                            : <p className='form-message'>* 빈칸이면 변경되지 않습니다.</p>
+                    }
                     <div className="modal-buttons">
                         <button type="button" className="cancel-button" onClick={onClose}>취소</button>
                         <button type="submit" className="save-button">저장</button>

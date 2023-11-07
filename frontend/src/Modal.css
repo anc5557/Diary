@@ -60,7 +60,8 @@
     flex-direction: column;
     /* 세로 정렬 */
 }
-.modal p{
+.modal p,
+.form-error-message{
     border-top: 2px solid #333;
     padding-top: 20px;
     margin-top: 20px;
@@ -69,16 +70,33 @@
     color: #ff2e2e;
 }
 
-/* 입력 필드 스타일 */
+/* 입력 필드 그룹 스타일 */
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* 라벨 스타일 */
+.form-group label {
+    width: 80px; /* 라벨 너비 고정 */
+    margin-left: 30px;
+    margin-right: 80px; /* 라벨과 입력 필드 간격 */
+    text-align: left; /* 라벨 내용 오른쪽 정렬 */
+}
+
+/* 입력 필드 스타일 조정 */
 .modal input[type="text"],
 .modal input[type="email"],
 .modal input[type="password"] {
-    margin-left: 30px;
-    margin-bottom: 20px;
+    flex: 1; /* 남은 공간 모두 차지 */
+    margin-left: 10px; /* 왼쪽 마진 제거 혹은 조정 */
+    margin-right: 30px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     transition: border-color 0.3s;
+    
 }
 
 .modal input[type="text"]:hover,
@@ -147,8 +165,8 @@
     background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
-.error {
+.alert-alert-danger {
     color: red;
-    margin-top: 5px;
-  }
-  
+    font-size: 18px;
+    margin-top: 10px;
+}
