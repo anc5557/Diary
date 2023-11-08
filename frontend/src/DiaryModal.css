@@ -1,0 +1,59 @@
+/* DiaryModal.css */
+.DiaryModal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.DiaryModal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+.DiaryModal-toolbar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Diary-close,
+.Diary-submit{
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    margin-left: 10px;
+}
+
+
+

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // toast import
@@ -28,12 +28,12 @@ function Register() {
         email,
       });
 
-      // 알림창 대신 toast 메시지 띄우기
+
       toast.success('회원가입이 완료되었습니다.');
 
       navigate('/auth/login');
     } catch (err) {
-      toast.error(err.response.data); // 알림창 대신 toast 메시지 띄우기
+      toast.error(err.response.data);
     }
   };
 

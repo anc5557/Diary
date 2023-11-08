@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const diarySchema = new mongoose.Schema({
     title: String,
     content: String,
-    date: String,
+    date: Date,
     userId: String,
     images: [
         {
