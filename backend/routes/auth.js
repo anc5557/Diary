@@ -12,7 +12,7 @@ require('dotenv').config();
 
 //jwt secret key, .env 파일에 저장
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
-const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1h'; // 기본값 설정
+const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1d'; // 기본값 설정
 
 
 
