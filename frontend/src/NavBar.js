@@ -22,17 +22,18 @@ function NavBar() {
 
   return (
     <div className="navbar">
-      <Link className="navbar-link" to="/">Home</Link>
       {isLoggedIn ? (
         <>
-          <Link className="navbar-link" to="/writediary">Write Diary</Link>
-          <Link className="navbar-link" to="/auth/profile">My Info</Link>
-          <button className="navbar-link" onClick={handleLogout}>Logout</button>
+          <Link className="navbar-link" to="/">다이어리</Link>
+          <Link className="navbar-link" to="/diary/write">일기 작성</Link>
+          <Link className="navbar-link" to="/auth/profile">내 정보</Link>
+          <button className="navbar-link" onClick={handleLogout}>로그아웃</button>
         </>
       ) : (
         <>
-          <Link className="navbar-link" to="/auth/register">Register</Link>
-          <Link className="navbar-link" to="/auth/login">Login</Link>
+          <Link className="navbar-link" to="/">홈</Link>
+          <Link className="navbar-link" to="/auth/register">회원가입</Link>
+          <Link className="navbar-link" to="/auth/login">로그인</Link>
         </>
       )}
     </div>
