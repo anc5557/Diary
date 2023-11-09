@@ -107,6 +107,7 @@ function Calendar() {
                 show={showForm}
                 onClose={handleCloseModal}
                 diaryData={diaryData} // 서버로부터 가져온 일기 데이터를 모달에 전달
+                setDiaryData={setDiaryData}
             />
 
 

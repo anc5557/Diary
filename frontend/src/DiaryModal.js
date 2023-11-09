@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./DiaryModal.css";
+import moment from "moment";
+import axios from "axios";
+  
 
-function DiaryModal({ show, diaryData, onClose }) {
+function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
   const [isEditing, setIsEditing] = useState(false); // 수정 모드인지 여부를 저장하는 state
   const [editedDiaryData, setEditedDiaryData] = useState(diaryData || {}); // 수정된 일기 데이터를 저장하는 state
 
@@ -18,8 +21,23 @@ function DiaryModal({ show, diaryData, onClose }) {
     setEditedDiaryData(diaryData || {});
   }
 
-  const handleSaveClick = () => {
-    // 수정된 일기 데이터를 서버에 저장하는 로직을 추가해야 합니다.
+  const handleSaveClick = async () => {
+    const formattedDate = moment(diaryData.date).format("YYYY-MM-DD");
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return;
+      }
+      const response = await axios.patch(`http://localhost:3001/diary/${formattedDate}`, editedDiaryData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDiaryData(response.data);
+    }
+    catch (error) {
+      console.error(error);
+    }
     setIsEditing(false);
   }
 
