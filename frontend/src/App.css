@@ -40,16 +40,21 @@
 .about-container,
 .calendar-container,
 .register-container,
-.login-container{
+.login-container,
+.myinfo-container{
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
-  border: 1px solid #ccc;
+
   border-radius: 8px;
 }
 
 
-/* 입력 필드 스타일링 */
+.register-form{
+  max-width: 600px;
+  padding: 0 32px 0 32px;
+}
+
 .register-input,
 .register-button {
   width: 100%;
@@ -62,7 +67,7 @@
 
 /* 버튼 스타일링 */
 .register-button{
-  background-color: #007bff;
+  background-color: #6f48eb;
   color: white;
   border: none;
   cursor: pointer;
@@ -70,7 +75,7 @@
 }
 
 .register-button:hover {
-  background-color: #0056b3;
+  background-color: #3f1db0;
 }
 
 
@@ -87,7 +92,7 @@
 
 /* 로그인 버튼 */
 .login-button {
-  background-color: #007bff;
+  background-color: #6f48eb;
   color: white;
   border: none;
   cursor: pointer;
@@ -103,7 +108,7 @@
 
 /* 로그인 버튼 마우스 오버 */
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #3f1db0;
 }
 
 .link-group {
@@ -116,7 +121,7 @@
 .login-id-find-link,
 .login-forgot-password-link,
 .login-register-link {
-  color: #007bff;
+  color: #6f48eb;
   text-decoration: none;
   font-size: 15px;
   margin: 10px 10px 10px 0;
@@ -131,11 +136,15 @@
 }
 
 /* 네비게이션 바 */
-.navbar {
-  background-color: #5caa68;
+.navbar{
+  background-color: #6f48eb;
   overflow: hidden;
   display: flex;
   justify-content: flex-end;
+  width: 100%; /* 추가 */
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
 /* 네비게이션 바 링크 및 버튼 */
@@ -154,8 +163,20 @@
 
 /* 네비게이션 바 링크 및 버튼 마우스 오버 */
 .navbar-link:hover, .navbar button:hover {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   color: black;
+}
+
+.footer{
+  background-color: #6f48eb;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 /* about-title */
@@ -189,14 +210,6 @@
   padding: 0; /* 왼쪽 패딩을 제거하여 정렬을 맞춤 */
 }
 
-.myinfo-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
 .myinfo-title {
   text-align: center;
   margin-bottom: 2rem;
@@ -227,7 +240,7 @@
   margin-top: 2rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #007bff;
+  background-color: #6f48eb;
   border: none;
   border-radius: 5px;
   cursor: pointer;

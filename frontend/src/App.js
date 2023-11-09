@@ -13,8 +13,10 @@ import About from './About';
 import Calendar from './Calendar';
 import MyInfo from './MyInfo';
 import UpdateInfo from './UpdateInfo';
+import Footer from './Footer';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+import React from 'react';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ function App() {
           />
         </Routes>
         <ToastContainer />
+        <Footer />
       </div>
     </Router>
   );
