@@ -13,6 +13,7 @@ import About from './About';
 import Calendar from './Calendar';
 import MyInfo from './MyInfo';
 import UpdateInfo from './UpdateInfo';
+import WriteDiary from './WriteDiary';
 import Footer from './Footer';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -50,6 +51,7 @@ function App() {
             path="/auth/update-info"
             element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />}
           />
+          <Route path="/writediary" element={isLoggedIn ? <WriteDiary /> : <Navigate replace to="/auth/login" />} />
         </Routes>
         <ToastContainer />
         <Footer />
