@@ -43,9 +43,8 @@
 .login-container,
 .myinfo-container{
   max-width: 600px;
-  margin: 2rem auto;
+  margin: 4rem auto;
   padding: 2rem;
-
   border-radius: 8px;
 }
 
@@ -75,7 +74,7 @@
 }
 
 .register-button:hover {
-  background-color: #3f1db0;
+  background-color: #5048b0;
 }
 
 
@@ -100,15 +99,16 @@
 }
 
 /* 로그인 타이틀 */
-.login-title {
+.login-title,
+.register-title{
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #333;
+  color: #6f48eb;
 }
 
 /* 로그인 버튼 마우스 오버 */
 .login-button:hover {
-  background-color: #3f1db0;
+  background-color: #5048b0;
 }
 
 .link-group {
@@ -184,7 +184,7 @@
   font-size: 2rem;
   margin-top: 30px;
   margin-bottom: 30px;
-  color: #333;
+  color: #6f48eb;
 }
 
 /* about-p */
@@ -198,7 +198,8 @@
 .about-func {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #333;
+  color: #6f48eb;
+
 }
 
 /* about-func-list */
@@ -213,6 +214,7 @@
 .myinfo-title {
   text-align: center;
   margin-bottom: 2rem;
+  color: #6f48eb;
 }
 
 .myinfo-item {
@@ -246,6 +248,13 @@
   cursor: pointer;
   flex: 1; /* flex 아이템들이 컨테이너의 전체 너비를 차지하도록 합니다. */
 }
+
+/* 호버 효과를 추가합니다. */
+.update-button:hover,
+.delete-button:hover {
+  background-color: #5048b0;
+}
+
 
 /* 버튼 사이의 간격을 추가합니다. */
 .update-button {

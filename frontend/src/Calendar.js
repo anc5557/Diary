@@ -91,7 +91,16 @@ function Calendar() {
                     }
                 }}
 
+                tileClassName={({ date, view }) => {
+                    // month view에서만 클래스를 적용합니다.
+                    if (view === 'month' && date.getDay() === 6) { // 토요일 확인
+                        return 'saturday';
+                    }
+                }}
+
                 formatDay={(locale, date) => moment(date).format("DD")}
+
+                
 
             />
             <DiaryModal
