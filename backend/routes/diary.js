@@ -45,4 +45,48 @@ router.get('/:date', authMiddleware, async (req, res) => {
     }
 });
 
+
+// 일기 데이터 생성
+router.post('/', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { title, content, date, emotion } = req.body; // 요청 바디에서 데이터를 가져옵니다.
+        const diary = new Diary({ title, content, date, userId, emotion }); // 일기 데이터 생성
+        await diary.save(); // 데이터베이스에 저장
+        res.status(201).json(diary); // 생성된 일기 데이터를 클라이언트에게 응답
+    } catch (err) {
+        // 에러 발생 시 에러 메시지와 함께 400 상태 코드로 응답
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// 일기 데이터 업데이트(제목, 감정, 내용)
+router.patch('/:date', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const date = req.params.date; // URL에서 날짜를 가져옵니다.
+        const { title, content, emotion } = req.body; // 요청 바디에서 데이터를 가져옵니다.
+        
+        // 요청된 날짜와 일치하는 일기 데이터 찾기
+        const diary = await Diary.findOne({
+            userId,
+            date: new Date(date) // 날짜 문자열을 Date 객체로 변환
+        }).exec();
+
+        if (diary) {
+            diary.title = title;
+            diary.content = content;
+            diary.emotion = emotion;
+            await diary.save(); // 데이터베이스에 저장
+            res.json(diary); // 업데이트된 일기 데이터를 클라이언트에게 응답
+        } else {
+            // 일기 데이터가 없는 경우 404 상태 코드로 응답
+            res.status(404).json({ message: 'Diary entry not found' });
+        }
+    } catch (err) {
+        // 에러 발생 시 에러 메시지와 함께 400 상태 코드로 응답
+        res.status(400).json({ message: err.message });
+    }
+});
+
 module.exports = router;
