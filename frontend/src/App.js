@@ -51,7 +51,7 @@ function App() {
             path="/auth/update-info"
             element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />}
           />
-          <Route path="/writediary" element={isLoggedIn ? <WriteDiary /> : <Navigate replace to="/auth/login" />} />
+          <Route path="/diary/write" element={isLoggedIn ? <WriteDiary /> : <Navigate replace to="/auth/login" />} />
         </Routes>
         <ToastContainer />
         <Footer />

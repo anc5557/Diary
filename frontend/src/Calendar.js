@@ -1,5 +1,6 @@
 // path : frontend/src/Calendar.js
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import moment from "moment";
 import ReactCalendar from 'react-calendar';
@@ -44,7 +45,7 @@ function Calendar() {
     const handleDateClick = async (value) => {
         // 클릭한 날짜를 포맷에 맞게 변환
         const formattedDate = moment(value).format("YYYY-MM-DD");
-        
+
         try {
             // 서버에 해당 날짜의 일기 데이터를 요청
             const response = await axios.get(`http://localhost:3001/diary/${formattedDate}`, {
@@ -52,7 +53,7 @@ function Calendar() {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            
+
             // 가져온 데이터를 diaryData 상태에 저장
             setDiaryData(response.data);
             setShowForm(true); // 모달을 표시
@@ -68,8 +69,17 @@ function Calendar() {
 
     return (
         <div className="calendar-container">
-            <h1>다이어리</h1>
-            <ReactCalendar 
+            <div className="calendar-header">
+                <div className="diary-title-container">
+                    <h1>다이어리</h1>
+                </div>
+                <div className="add-button-container">
+                    <Link className="calendarwrite-link" to="/diary/write">
+                        <div className="add-button">+</div>
+                    </Link>
+                </div>
+            </div>
+            <ReactCalendar
                 onChange={handleDateClick} value={date}  // onChange와 value props 추가 
                 // calendarType prop 추가
                 calendarType="gregory"
@@ -79,8 +89,8 @@ function Calendar() {
                     if (diaries.find((x) => x === moment(date).format("DD-MM-YYYY"))) {
                         return <div className="dot"></div>;
                     }
-                }}  
-                
+                }}
+
                 formatDay={(locale, date) => moment(date).format("DD")}
 
             />
@@ -89,6 +99,8 @@ function Calendar() {
                 onClose={handleCloseModal}
                 diaryData={diaryData} // 서버로부터 가져온 일기 데이터를 모달에 전달
             />
+
+
         </div>
     );
 }
