@@ -43,7 +43,7 @@ function Calendar() {
     }, []);
 
     const handleDateClick = async (value) => {
-        // 클릭한 날짜를 포맷에 맞게 변환
+        setDate(value);
         const formattedDate = moment(value).format("YYYY-MM-DD");
 
         try {
