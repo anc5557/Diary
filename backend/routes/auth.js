@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const router = express.Router();
+const auth = require('../middleware/authMiddleware');
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
 require('dotenv').config();
@@ -14,18 +15,7 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '1h'; // 기본값 설정
 
 
-// jwt 토큰 인증 미들웨어
-const auth = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1]; // 'Bearer' 토큰 추출
-    const decoded = jwt.verify(token, jwtSecretKey); // 토큰 해독
-    req.userId = decoded.id; // 사용자 ID를 요청 객체에 저장
-    next();
-  } catch (err) {
-    res.status(401).send('Invalid Token');
-  }
-  
-};
+
 
 // 회원가입
 router.post('/register', async (req, res) => {

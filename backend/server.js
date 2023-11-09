@@ -1,7 +1,9 @@
 // path : backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
-const authRoutes = require('./routes/Auth');
+const authRoutes = require('./routes/auth');
+const diaryRoutes = require('./routes/diary');
+const authMiddleware = require('./middleware/authMiddleware');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -25,6 +27,7 @@ connection.once('open', () => {
 
 // 라우트 설정
 app.use('/auth', authRoutes);
+app.use('/diary',authMiddleware, diaryRoutes);
 
 // 서버 실행
 app.listen(3001, () => {
