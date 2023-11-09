@@ -40,7 +40,7 @@ function Register() {
   return (
     <div className="register-container">
       <h1 className="register-title">회원가입</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='register-form' onSubmit={handleSubmit}>
         <input className="register-input" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
         <input className="register-input" type="password" placeholder="Password" 
                           pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$'
