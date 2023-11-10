@@ -6,14 +6,13 @@ import { setLogin } from './features/loginSlice';
 import { ToastContainer } from 'react-toastify';
 
 
-import Login from './Login';
-import Register from './Register';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import NavBar from './NavBar';
-import About from './About';
-import Calendar from './Calendar';
-import MyInfo from './MyInfo';
-import UpdateInfo from './UpdateInfo';
-import WriteDiary from './WriteDiary';
+import About from './pages/About';
+import Calendar from './pages/Calendar';
+import MyInfo from './pages/MyInfo';
+import WriteDiary from './pages/WriteDiary';
 import Footer from './Footer';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -46,10 +45,6 @@ function App() {
           <Route
             path="/auth/profile"
             element={isLoggedIn ? <MyInfo /> : <Navigate replace to="/auth/login" />}
-          />
-          <Route
-            path="/auth/update-info"
-            element={isLoggedIn ? <UpdateInfo /> : <Navigate replace to="/auth/login" />}
           />
           <Route path="/diary/write" element={isLoggedIn ? <WriteDiary /> : <Navigate replace to="/auth/login" />} />
         </Routes>

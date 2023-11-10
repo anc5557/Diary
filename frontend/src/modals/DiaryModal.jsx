@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./DiaryModal.css";
 import moment from "moment";
 import axios from "axios";
-  
+
 
 function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
   const [isEditing, setIsEditing] = useState(false); // 수정 모드인지 여부를 저장하는 state
   const [editedDiaryData, setEditedDiaryData] = useState(diaryData || {}); // 수정된 일기 데이터를 저장하는 state
+
+  const emotions = ["기쁨", "행복", "우울", "분노", "슬픔", "즐거움", "걱정", "편안함"];
 
   useEffect(() => {
     setEditedDiaryData(diaryData || {});
@@ -53,7 +55,7 @@ function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
           {isEditing ? (
             <>
               <label>
-              <span><strong>제목</strong></span>
+                <span><strong>제목</strong></span>
                 <input className="Diary-title-edit"
                   type="text"
                   value={editedDiaryData.title || ''}
@@ -61,15 +63,19 @@ function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
                 />
               </label>
               <label>
-              <span><strong>감정</strong></span>
-                <input className="Diary-emotion-edit"
-                  type="text"
+                <span><strong>감정</strong></span>
+                <select
+                  className="Diary-emotion-edit"
                   value={editedDiaryData.emotion || ''}
                   onChange={(e) => setEditedDiaryData({ ...editedDiaryData, emotion: e.target.value })}
-                />
+                >
+                  {emotions.map(emotion => (
+                    <option key={emotion} value={emotion}>{emotion}</option>
+                  ))}
+                </select>
               </label>
               <label>
-              <span><strong>내용</strong></span>
+                <span><strong>내용</strong></span>
                 <textarea
                   value={editedDiaryData.content || ''}
                   onChange={(e) => setEditedDiaryData({ ...editedDiaryData, content: e.target.value })}

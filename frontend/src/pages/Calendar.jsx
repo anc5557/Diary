@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import moment from "moment";
 import ReactCalendar from 'react-calendar';
-import DiaryModal from "./DiaryModal";
+import DiaryModal from "../modals/DiaryModal";
 
 import 'react-calendar/dist/Calendar.css';
-import './custom-react-calendar.css';
+import '../custom-react-calendar.css';
 
-import "./App.css";
+import "../App.css";
 
 function Calendar() {
     const [diaries, setDiaries] = useState([]); // diaries 상태 추가(초기값은 빈 배열),     

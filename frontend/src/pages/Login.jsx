@@ -1,11 +1,11 @@
 // path : frontend/src/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import '../App.css';
 import { Link } from 'react-router-dom';  // 리액트 라우터의 Link 컴포넌트 추가
 import { useNavigate } from 'react-router-dom';  // useHistory import
 import { useDispatch } from 'react-redux';
-import { setLogin } from './features/loginSlice'; // 리덕스 액션 가져오기
+import { setLogin } from '../features/loginSlice'; // 리덕스 액션 가져오기
 
 function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState('');

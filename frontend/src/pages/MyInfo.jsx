@@ -2,16 +2,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setLogin } from './features/loginSlice';
+import { setLogin } from '../features/loginSlice';
 import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-import UpdateInfoModal from './UpdateInfoModal';
+import UpdateInfoModal from '../modals/UpdateInfoModal';
 import axios from 'axios';
-import './App.css';
+import '../App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import './custom-react-confirm-alert.css';
+import '../custom-react-confirm-alert.css';
 
 function MyInfo() {
     const [user, setUser] = useState({});
