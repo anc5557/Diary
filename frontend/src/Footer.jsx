@@ -4,15 +4,13 @@ import React from 'react';
 import './App.css';
 
 function Footer() {
-    // 그냥 네모 박스로 만들어놓은 것
     return (
         <div className="footer">
             <div className="footer-text">
-                <p>© 2023. All rights reserved.</p>
+                <p>GitHub : <a href='https://github.com/anc5557' className='github-link'>https://github.com/anc5557</a></p>
             </div>
         </div>
     );
-    
 }
 
 export default Footer;

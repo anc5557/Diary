@@ -180,6 +180,11 @@
   width: 100%;
 }
 
+.github-link{
+  color: white;
+  text-decoration: none;
+}
+
 /* about-title */
 .about-title {
   font-size: 2rem;
