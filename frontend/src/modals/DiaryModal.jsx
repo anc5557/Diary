@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "./DiaryModal.css";
+import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
+
 import moment from "moment";
 import axios from "axios";
+import "./DiaryModal.css";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
-function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
+function DiaryModal({ show, diaryData, setDiaryData, onClose, removeDiaryEntry }) {
   const [isEditing, setIsEditing] = useState(false); // 수정 모드인지 여부를 저장하는 state
   const [editedDiaryData, setEditedDiaryData] = useState(diaryData || {}); // 수정된 일기 데이터를 저장하는 state
 
@@ -46,6 +50,43 @@ function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
   const handleCancelClick = () => {
     setIsEditing(false);
     setEditedDiaryData(diaryData || {});
+  }
+
+  const handleDeleteClick = () => {
+    confirmAlert({
+      title: '일기 삭제 확인',
+      message: '정말로 이 일기를 삭제하시겠습니까?',
+      buttons: [
+        {
+          label: '예',
+          onClick: async () => {
+            const formattedDate = moment(diaryData.date).format("YYYY-MM-DD");
+            try {
+              const token = localStorage.getItem('token');
+              if (!token) {
+                toast.error('인증 토큰이 없습니다.');
+                return;
+              }
+              await axios.delete(`http://localhost:3001/diary/${formattedDate}`, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              toast.success('일기가 성공적으로 삭제되었습니다.');
+              removeDiaryEntry(formattedDate); // 콜백 함수 호출로 상위 컴포넌트의 상태 갱신
+              setDiaryData(null);
+              onClose();
+            } catch (error) {
+              toast.error('일기 삭제에 실패했습니다.');
+              console.error(error);
+            }
+          }
+        },
+        {
+          label: '아니요'
+        }
+      ]
+    });
   }
 
   return (
@@ -104,6 +145,7 @@ function DiaryModal({ show, diaryData, setDiaryData, onClose }) {
           ) : (
             <>
               <button className="Diary-edit" onClick={handleEditClick}>수정</button>
+              <button className="Diary-delete" onClick={handleDeleteClick}>삭제</button>
               <button className="Diary-close" onClick={onClose}>닫기</button>
             </>
           )}

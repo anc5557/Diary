@@ -2,6 +2,7 @@
 .react-confirm-alert-overlay {
     /* 배경색 변경 */
     background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
 /* Confirm Alert Modal Box */
@@ -14,6 +15,7 @@
     width: 500px;
     /* 모달의 둥근 모서리 */
     border-radius: 10px;
+    z-index: 1001;
 }
 
 /* Confirm Alert Modal Title */

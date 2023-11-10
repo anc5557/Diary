@@ -17,6 +17,7 @@ function Calendar() {
     const [showForm, setShowForm] = useState(false); // showForm 상태 추가(초기값은 false)
     const [diaryData, setDiaryData] = useState(null); // 서버로부터 가져온 일기 데이터 상태
 
+    // 모달을 닫는 함수
     const handleCloseModal = () => {
         setShowForm(false);
     };
@@ -42,6 +43,7 @@ function Calendar() {
             });
     }, []);
 
+    // 캘린더에서 날짜를 클릭할 때 실행되는 함수
     const handleDateClick = async (value) => {
         setDate(value);
         const formattedDate = moment(value).format("YYYY-MM-DD");
@@ -63,9 +65,11 @@ function Calendar() {
             setShowForm(false); // 모달을 표시하지 않음
         }
     };
-
-
-
+    
+    // 일기 삭제 함수
+    const removeDiaryEntry = (date) => {
+        setDiaries(currentDiaries => currentDiaries.filter(diaryDate => diaryDate !== moment(date).format("DD-MM-YYYY")));
+    };
 
     return (
         <div className="calendar-container">
@@ -108,6 +112,7 @@ function Calendar() {
                 onClose={handleCloseModal}
                 diaryData={diaryData} // 서버로부터 가져온 일기 데이터를 모달에 전달
                 setDiaryData={setDiaryData}
+                removeDiaryEntry={removeDiaryEntry}
             />
 
 

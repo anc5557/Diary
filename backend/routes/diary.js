@@ -89,4 +89,34 @@ router.patch('/:date', authMiddleware, async (req, res) => {
     }
 });
 
+
+// 일기 데이터 삭제
+router.delete('/:date', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const date = new Date(req.params.date);
+
+        const startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(date);
+        endOfDay.setHours(23, 59, 59, 999);
+
+        // 날짜 범위를 사용하여 일기 데이터를 찾아서 삭제
+        const result = await Diary.deleteOne({
+            userId,
+            date: { $gte: startOfDay, $lte: endOfDay }
+        });
+
+        if (result.deletedCount === 0) {
+            res.status(404).json({ message: 'Diary entry not found' });
+        } else {
+            res.json({ message: 'Diary entry deleted' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+
+
 module.exports = router;
