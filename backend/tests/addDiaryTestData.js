@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Diary = require('./models/Diary');
+const Diary = require('../models/Diary');
 require('dotenv').config();
 const uri = process.env.MONGO_URI;
 
