@@ -44,7 +44,7 @@ function WriteDiary() {
       .catch((error) => {
         console.error(error);
       });
-  }, []); // 의존성 배열을 추가하여 마운트 시에만 실행되도록 함
+  }, [navigate]); // 의존성 배열을 추가하여 마운트 시에만 실행되도록 함
 
   const handleDateChange = (event) => {
     const newDate = event.target.value;
