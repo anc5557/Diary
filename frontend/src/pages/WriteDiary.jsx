@@ -146,6 +146,7 @@ function WriteDiary() {
               <textarea
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
+                style={{ resize: 'none' }}
               />
             </label>
           </div>
