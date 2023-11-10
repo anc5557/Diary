@@ -41,7 +41,8 @@
 .calendar-container,
 .register-container,
 .login-container,
-.myinfo-container{
+.myinfo-container,
+.writediary-container{
   max-width: 600px;
   margin: 4rem auto;
   padding: 2rem;
