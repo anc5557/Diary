@@ -1,7 +1,10 @@
 // UpdateInfoModal.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Modal.css'; // 모달에 대한 스타일을 추가하세요
+import { toast } from 'react-toastify'; // react-toastify 라이브러리 추가
+import 'react-toastify/dist/ReactToastify.css'; // react-toastify 스타일 추가
+import './Modal.css';
+
 
 function UpdateInfoModal({ isOpen, onClose, refreshUser }) {
     const [formData, setFormData] = useState({
@@ -57,12 +60,12 @@ function UpdateInfoModal({ isOpen, onClose, refreshUser }) {
                 },
             });
             console.log(res.data);
-            alert('정보가 업데이트 되었습니다.');
+            toast.success('정보가 업데이트 되었습니다.'); // react-toastify로 성공 메시지 보여주기
             refreshUser(); // 사용자 정보를 새로고침하는 함수를 호출
             onClose(); // 모달 닫기
         } catch (err) {
             console.error(err);
-            alert('정보를 업데이트하는데 실패했습니다.');
+            toast.error('정보를 업데이트하는데 실패했습니다.'); // react-toastify로 실패 메시지 보여주기
         }
     };
 
