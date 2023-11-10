@@ -11,12 +11,12 @@ Javascript, React18, Node.js, Express 연습용 프로젝트
 - 프론트엔드: HTML, CSS, Javascript, React18
 - 백엔드: Node.js, Express, MongoDB
 
-# 기능 명세
+# 기능
 
 1. 회원 기능
 
    1. 회원가입(username, password, firstName, lastName, email)
-   2. 로그인
+   2. 로그인(JWT Token)
    3. 회원정보 변경(password, firstName, lastName, email)
 2. 달력 기능
 
@@ -26,3 +26,5 @@ Javascript, React18, Node.js, Express 연습용 프로젝트
 
    1. 글 쓰기 기능(제목, 날짜, 감정, 내용)
    2. 타임 스탬프 기능
+
+# 서비스 화면
