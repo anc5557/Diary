@@ -23,6 +23,15 @@ function WriteDiary() {
       navigate('/auth/login', { replace: true });
       return;
     }
+
+    // URL에서 date 쿼리 파라미터를 가져옵니다.
+    const searchParams = new URLSearchParams(window.location.search);
+    const dateParam = searchParams.get('date');
+    if (dateParam) {
+        setDate(moment(dateParam).format("YYYY-MM-DD"));
+    }
+
+
     axios.get('http://localhost:3001/diary/dates', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,14 +48,19 @@ function WriteDiary() {
 
   const handleDateChange = (event) => {
     const newDate = event.target.value;
-    // 이미 존재하는 날짜인지 확인하고, 그렇지 않을 경우 상태를 업데이트함
+    // 이미 존재하는 날짜인지 확인
     if (!diaries.includes(moment(newDate).format("YYYY-MM-DD"))) {
+      // 존재하지 않는 날짜이면 상태를 업데이트하고 URL의 쿼리 파라미터를 변경
       setDate(newDate);
+      navigate(`/diary/write?date=${moment(newDate).format("YYYY-MM-DD")}`);
     } else {
-      // 사용자에게 이미 해당 날짜에 대한 일기가 존재한다고 알림
+      // 이미 존재하는 날짜를 선택했다면 알림을 표시하고 상태를 업데이트하지 않음
       toast.error('이미 해당 날짜에 작성된 일기가 있습니다. 다른 날짜를 선택해주세요.');
+      // 선택한 날짜를 리셋하기 위해 빈 문자열을 설정할 수 있습니다.
+      event.target.value = '';
     }
   };
+  
 
 
   const handleSubmit = async (event) => {
@@ -83,6 +97,8 @@ function WriteDiary() {
     }
 
   };
+
+
 
 
   return (

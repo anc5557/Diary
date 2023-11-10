@@ -1,6 +1,6 @@
 // path : frontend/src/Calendar.js
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import moment from "moment";
 import ReactCalendar from 'react-calendar';
@@ -17,6 +17,8 @@ function Calendar() {
     const [showForm, setShowForm] = useState(false); // showForm 상태 추가(초기값은 false)
     const [diaryData, setDiaryData] = useState(null); // 서버로부터 가져온 일기 데이터 상태
 
+    const navigate = useNavigate();
+    
     // 모달을 닫는 함수
     const handleCloseModal = () => {
         setShowForm(false);
@@ -55,17 +57,20 @@ function Calendar() {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-
             // 가져온 데이터를 diaryData 상태에 저장
             setDiaryData(response.data);
             setShowForm(true); // 모달을 표시
         } catch (error) {
-            console.error('Error fetching diary entry:', error);
-            setDiaryData(null); // 에러가 발생했을 때 데이터 초기화
-            setShowForm(false); // 모달을 표시하지 않음
+            if (error.response && error.response.status === 404) {
+                navigate(`/diary/write?date=${formattedDate}`);
+            } else {
+                console.error('Error fetching diary entry:', error);
+                setDiaryData(null); // 에러가 발생했을 때 데이터 초기화
+                setShowForm(false); // 모달을 표시하지 않음
+            }
         }
     };
-    
+
     // 일기 삭제 함수
     const removeDiaryEntry = (date) => {
         setDiaries(currentDiaries => currentDiaries.filter(diaryDate => diaryDate !== moment(date).format("DD-MM-YYYY")));
@@ -104,7 +109,7 @@ function Calendar() {
 
                 formatDay={(locale, date) => moment(date).format("DD")}
 
-                
+
 
             />
             <DiaryModal
