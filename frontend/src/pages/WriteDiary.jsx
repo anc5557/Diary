@@ -4,6 +4,7 @@ import moment from "moment";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import "./WriteDiary.css";
 
 function WriteDiary() {
   const [title, setTitle] = useState("");
@@ -82,51 +83,63 @@ function WriteDiary() {
     }
 
   };
-  
+
 
   return (
     <div className="writediary-container">
+      <h1>일기 작성</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          일기 제목:
-          <input
-            type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          일기 내용:
-          <textarea
-            value={content}
-            onChange={(event) => setContent(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          감정:
-          <select value={emotion} onChange={(event) => setEmotion(event.target.value)}>
-            <option value="">감정을 선택하세요</option>
-            {emotions.map((emotion) => (
-              <option key={emotion} value={emotion}>
-                {emotion}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label>
-        날짜:
-        <input
-          type="date" value={date} onChange={handleDateChange}
-        />
-      </label>
-        <br />
+
+        <div className="input-box-container">
+          <div className="input-box">
+            <label>
+              제목
+              <input
+                type="text"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+              />
+            </label>
+          </div>
+          <div className="input-box">
+            <label>
+              날짜
+              <input
+                type="date"
+                value={date}
+                onChange={handleDateChange}
+              />
+            </label>
+          </div>
+          <div className="input-box">
+            <label>
+              감정
+              <select value={emotion} onChange={(event) => setEmotion(event.target.value)}>
+                <option value="">감정을 선택하세요</option>
+                {emotions.map((emotion) => (
+                  <option key={emotion} value={emotion}>
+                    {emotion}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="input-box">
+            <label>
+              내용
+              <textarea
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+              />
+            </label>
+          </div>
+        </div>
         <button type="submit">작성 완료</button>
       </form>
     </div>
   );
+
+
 }
 
 export default WriteDiary;

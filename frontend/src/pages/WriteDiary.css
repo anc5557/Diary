@@ -1,0 +1,92 @@
+.writediary-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.writediary-container label {
+    display: block;
+    /* 라벨을 블록 요소로 만듭니다 */
+    margin-bottom: .5rem;
+}
+
+.writediary-container input[type=text],
+.writediary-container textarea,
+.writediary-container select,
+.writediary-container input[type=date] {
+    width: 100%;
+    padding: .5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: .5rem;
+}
+
+
+.writediary-container textarea {
+    min-height: 120px;
+}
+
+.writediary-container button {
+    padding: 0.7rem 1.5rem;
+    background-color: #6f48eb;;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.writediary-container button:hover {
+    background-color: #5048b0;
+}
+
+.input-box {
+    width: 100%;
+    /* 부모 요소에 대해 전체 너비 */
+    margin-bottom: 1rem;
+    /* 박스 사이의 간격 */
+    padding: 1rem;
+    /* 내부 여백 */
+    box-sizing: border-box;
+    /* 패딩과 테두리를 너비에 포함 */
+}
+
+/* 각 인풋 필드의 너비를 설정 */
+.input-box input[type="text"],
+.input-box input[type="date"],
+.input-box select,
+.input-box textarea {
+    width: calc(100% - 2rem);
+    /* 부모의 width에서 padding 값을 빼줌 */
+    box-sizing: border-box;
+    /* 패딩과 테두리를 너비에 포함 */
+    font-size: 15px;
+}
+
+.input-box label {
+    font-weight: bold;
+    /* 글자를 굵게 */
+    color: #6f48eb;
+    /* 글자 색상을 짙게 */
+    font-size: 1.3rem;
+    /* 글자 크기를 조금 더 크게 */
+}
+
+.writediary-container h1 {
+    margin-top: 0;
+    color: #6f48eb;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.input-box-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+
+}
