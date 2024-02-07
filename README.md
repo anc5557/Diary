@@ -27,4 +27,3 @@ Javascript, React18, Node.js, Express 연습용 프로젝트
    1. 글 쓰기 기능(제목, 날짜, 감정, 내용)
    2. 타임 스탬프 기능
 
-# 서비스 화면
